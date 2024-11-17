@@ -25,7 +25,7 @@ public class User {
 
     @UniqueEmail
     @NotNull(message = "Email is required")
-    @Email
+    @Email(message = "Given email is invalid")
     @Column(name = "email")
     private String email;
 
