@@ -1,11 +1,14 @@
 package com.marcykiewicz.mateusz.joba_application_portal.entity;
 
+import com.marcykiewicz.mateusz.joba_application_portal.validation.UniqueEmail;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,19 +24,22 @@ public class User {
     private Long userId;
 
     @NotNull(message = "Email is required")
-    @Column(name = "email", unique = true)
+    @Email
+    @Column(name = "email")
     private String email;
 
     @Column(name = "is_active")
     private boolean isActive;
 
+    @UniqueEmail
     @NotNull(message = "Password is required")
+    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W)_*.{6,}")
     @Column(name = "password")
     private String password;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "registration_date")
-    private Date registrationDate;
+    private LocalDateTime registrationDate;
 
     @NotNull(message = "User type is required")
     @ManyToOne(targetEntity = UsersType.class,
@@ -46,4 +52,9 @@ public class User {
     @JoinColumn(name = "user_type_id")
     private UsersType usersType;
 
+
+    @PrePersist
+    public void prePersist() {
+        registrationDate = LocalDateTime.now();
+    }
 }
