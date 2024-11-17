@@ -7,6 +7,7 @@ import com.marcykiewicz.mateusz.joba_application_portal.service.UsersTypeService
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,20 @@ import java.util.List;
 @Controller
 public class RegistrationController {
 
+    @Value("${password.validationRule}")
+    private String passwordValidationRule;
+
     private final UsersTypeService usersTypeService;
     private final UserService userService;
 
     @ModelAttribute(name = "usersTypes")
     public List<UsersType> setUsersTypes() {
         return usersTypeService.findAll();
+    }
+
+    @ModelAttribute("passwordRules")
+    public String getPasswordRules() {
+        return passwordValidationRule;
     }
 
     @InitBinder
@@ -40,6 +49,7 @@ public class RegistrationController {
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("passwordError", null);
 
         return "register";
     }

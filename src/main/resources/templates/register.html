@@ -64,10 +64,15 @@
                                             />
                                         </div>
                                     </div>
-                                    <div>
-                                        <span th:if="${#fields.hasErrors('email')}"
-                                              th:errors="*{email}"
-                                              class="alert-danger"></span>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div th:if="${#fields.hasErrors('email')}"
+                                                     class="alert alert-danger">
+                                                    <p th:errors="*{email}"></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -80,7 +85,6 @@
                                                     th:field="*{password}"
                                                     type="password"
                                                     class="form-control pwd"
-
                                             />
                                         </div>
                                     </div>
@@ -97,15 +101,30 @@
                                             />
                                         </div>
                                     </div>
-                                    <div>
-                                        <span th:if="${#fields.hasErrors('password')}"
-                                              th:errors="*{password}"
-                                              class="alert-danger"></span>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="alert alert-light">
+                                                    <p th:text="${passwordRules}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div th:if="${#fields.hasErrors('password')}"
+                                                     class="alert alert-danger">
+                                                    <p th:errors="*{password}"></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div>
-                                        <span th:if="${passwordError}"
+                                        <div th:if="${passwordError}"
                                               th:text="${passwordError}"
-                                              class="alert-danger"/>
+                                             class="alert alert-danger"
+                                             role="alert"></d>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -123,10 +142,15 @@
                                             </th:block>
                                         </select>
                                     </div>
-                                    <div>
-                                        <span th:if="${#fields.hasErrors('usersType')}"
-                                              th:errors="*{usersType}"
-                                              class="alert-danger"></span>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div th:if="${#fields.hasErrors('usersType')}"
+                                                     class="alert alert-danger">
+                                                    <p  th:errors="*{usersType}"></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
