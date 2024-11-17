@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link
             th:rel="stylesheet"
@@ -45,7 +45,7 @@
                     </div>
                     <div class="myForm">
                         <form
-                                th:action="@{/register/new}"
+                                th:action="@{/register}"
                                 th:object="${user}"
                                 method="post"
                         >
@@ -64,20 +64,48 @@
                                             />
                                         </div>
                                     </div>
+                                    <div>
+                                        <span th:if="${#fields.hasErrors('email')}"
+                                              th:errors="*{email}"
+                                              class="alert-danger"></span>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <input
-                                                    min="8"
+                                                    min="6"
                                                     placeholder="Password"
                                                     name="password"
                                                     th:field="*{password}"
                                                     type="password"
                                                     class="form-control pwd"
-                                                    required
+
                                             />
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input
+                                                    min="6"
+                                                    placeholder="Repeat Password"
+                                                    name="passwordRepeat"
+                                                    type="password"
+                                                    class="form-control pwd"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span th:if="${#fields.hasErrors('password')}"
+                                              th:errors="*{password}"
+                                              class="alert-danger"></span>
+                                    </div>
+                                    <div>
+                                        <span th:if="${passwordError}"
+                                              th:text="${passwordError}"
+                                              class="alert-danger"/>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -85,15 +113,20 @@
                                         <select
                                                 required
                                                 class="form-control"
-                                                th:field="*{userTypeId}"
+                                                th:field="*{usersType}"
                                         >
-                                            <th:block th:each="userType :${getAllTypes}">
+                                            <th:block th:each="userType : ${usersTypes}">
                                                 <option
                                                         th:text="${userType.userTypeName}"
                                                         th:value="${userType.userTypeId}"
                                                 ></option>
                                             </th:block>
                                         </select>
+                                    </div>
+                                    <div>
+                                        <span th:if="${#fields.hasErrors('usersType')}"
+                                              th:errors="*{usersType}"
+                                              class="alert-danger"></span>
                                     </div>
                                 </div>
                             </div>
