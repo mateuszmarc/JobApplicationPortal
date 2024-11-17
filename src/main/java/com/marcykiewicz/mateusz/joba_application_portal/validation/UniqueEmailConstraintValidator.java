@@ -4,16 +4,25 @@ import com.marcykiewicz.mateusz.joba_application_portal.entity.User;
 import com.marcykiewicz.mateusz.joba_application_portal.service.UserService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
+@NoArgsConstructor
 public class UniqueEmailConstraintValidator implements ConstraintValidator<UniqueEmail, String> {
 
-    @Autowired
+    @Override
+    public void initialize(UniqueEmail constraintAnnotation) {
+        ConstraintValidator.super.initialize(constraintAnnotation);
+    }
+
     private UserService userService;
+
+    @Autowired
+    public UniqueEmailConstraintValidator(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
