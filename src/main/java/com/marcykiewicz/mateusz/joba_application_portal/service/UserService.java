@@ -24,4 +24,12 @@ public class UserService {
     public Optional<User> findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public String validatePasswords(String password, String passwordRepeat) {
+        String errorMessage = null;
+        if (!(passwordRepeat != null && passwordRepeat.equals(password))) {
+            errorMessage = "Given passwords are different";
+        }
+        return errorMessage;
+    }
 }

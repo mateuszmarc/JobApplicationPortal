@@ -23,6 +23,7 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
+    @UniqueEmail
     @NotNull(message = "Email is required")
     @Email
     @Column(name = "email")
@@ -31,9 +32,8 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @UniqueEmail
     @NotNull(message = "Password is required")
-    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W)_*.{6,}")
+    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W)_*.{6,}", message = "Given password does not contain all needed characters")
     @Column(name = "password")
     private String password;
 

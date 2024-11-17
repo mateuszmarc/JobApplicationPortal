@@ -16,11 +16,11 @@ public class UsersType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "users_type_id")
-    private Long usersTypeId;
+    @Column(name = "user_type_id")
+    private Long userTypeId;
 
-    @Column(name = "users_type_name")
-    private String usersTypeName;
+    @Column(name = "user_type_name")
+    private String userTypeName;
 
     @ToString.Exclude
     @OneToMany(targetEntity = User.class,
