@@ -46,13 +46,12 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String processRegisterForm(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model, HttpServletRequest request) {
+        String passwordRepeat = request.getParameter("passwordRepeat");
+        String passwordEqualityError = userService.validatePasswords(user.getPassword(), passwordRepeat);
 
-        if (bindingResult.hasErrors()) {
-            String passwordRepeat = request.getParameter("passwordRepeat");
-            String error = userService.validatePasswords(user.getPassword(), passwordRepeat);
-            model.addAttribute("passwordError", error);
+        if (bindingResult.hasErrors() || passwordEqualityError != null) {
+            model.addAttribute("passwordError", passwordEqualityError);
             return "register";
-
         }
 
         userService.addUser(user);
