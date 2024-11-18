@@ -8,6 +8,7 @@ import com.marcykiewicz.mateusz.joba_application_portal.repository.RecruiterProf
 import com.marcykiewicz.mateusz.joba_application_portal.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,12 +20,17 @@ public class UserService {
     private final UserRepository userRepository;
     private final RecruiterProfileRepository recruiterProfileRepository;
     private final JobSeekerProfileRepository jobSeekerProfileRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void addUser(User savedUser) {
-        savedUser.setActive(true);
+    public void addUser(User user) {
+        user.setActive(true);
 
-        savedUser = userRepository.save(savedUser);
+        String plainPassword = user.getPassword();
+        String encryptedPassword = passwordEncoder.encode(plainPassword);
+        user.setPassword(encryptedPassword);
+
+        User savedUser = userRepository.save(user);
         Long userTypeId = savedUser.getUsersType().getUserTypeId();
 
         if (userTypeId.equals(1L)) {
