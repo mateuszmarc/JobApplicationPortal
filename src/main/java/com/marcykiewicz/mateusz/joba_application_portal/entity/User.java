@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +14,8 @@ import java.time.LocalDateTime;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "users")
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -37,7 +37,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;
 

@@ -8,7 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name = "recruiter_profile")
+@Entity
+@Table(name = "recruiter_profile")
 public class RecruiterProfile implements UserProfile {
 
     @Id

@@ -11,7 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Entity(name = "users_type")
+@Entity
+@Table(name = "users_type")
 public class UsersType {
 
     @Id
