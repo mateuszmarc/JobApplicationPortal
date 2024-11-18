@@ -33,7 +33,7 @@ public class JobLocation {
 
     @OneToMany(
             targetEntity = JobPostActivity.class,
-            mappedBy = "jobPostActivity",
+            mappedBy = "jobLocation",
             cascade = {
                     CascadeType.DETACH,
                     CascadeType.PERSIST,
