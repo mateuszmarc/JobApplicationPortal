@@ -11,7 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name = "job_seeker_profile")
+@Entity
+@Table(name = "job_seeker_profile")
 public class JobSeekerProfile implements UserProfile {
 
     @Id
