@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Entity(name = "recruiter_profile")
-public class RecruiterProfile {
+public class RecruiterProfile implements UserProfile {
 
     @Id
     private Long id;
