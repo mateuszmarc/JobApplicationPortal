@@ -1,6 +1,7 @@
 package com.marcykiewicz.mateusz.joba_application_portal.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
@@ -46,6 +47,7 @@ public class JobPostActivity {
     @Column(name = "salary")
     private String salary;
 
+    @Valid
     @ManyToOne(
             targetEntity = JobCompany.class,
             cascade = {
@@ -57,6 +59,7 @@ public class JobPostActivity {
     @JoinColumn(name = "job_company_id")
     private JobCompany jobCompany;
 
+    @Valid
     @ManyToOne(
             targetEntity = JobLocation.class,
             cascade = {

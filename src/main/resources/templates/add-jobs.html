@@ -122,18 +122,42 @@
             <div class="row" >
                 <div class="col-md-4 form-group">
                     <input th:field="*{jobLocation.city}" id="city" type="text"  class="form-control" placeholder="City">
+                    <div class="row">
+                        <div class="form-group">
+                            <div th:if="${#fields.hasErrors('jobLocation.city')}"
+                                 class="alert alert-danger">
+                                <p th:errors="*{jobLocation.city}"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <input id="state" th:field="*{jobLocation.state}" type="text"  class="form-control" placeholder="State">
                 </div>
                 <div class="col-md-4 form-group">
                     <input id="country" th:field="*{jobLocation.country}" type="text"  class="form-control" placeholder="Country">
+                    <div class="row">
+                        <div class="form-group">
+                            <div th:if="${#fields.hasErrors('jobLocation.country')}"
+                                 class="alert alert-danger">
+                                <p th:errors="*{jobLocation.country}"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 form-group">
                     <label class="mt-2 heading_font font_sub_heading_color">Company</label>
                     <input id="companyName" th:field="*{jobCompany.name}" type="text" class="form-control" placeholder="Company Name">
+                    <div class="row">
+                        <div class="form-group">
+                            <div th:if="${#fields.hasErrors('jobCompany.name')}"
+                                 class="alert alert-danger">
+                                <p th:errors="*{jobCompany.name}"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -68,7 +68,6 @@ public class JobPostActivityController {
             String email = authentication.getName();
             System.out.println(jobPostActivity);
             if (bindingResult.hasErrors()) {
-                System.out.println("Has errors");
                 UserProfile userProfile = userProfileService.getCurrentUserProfile();
                 model.addAttribute("user", userProfile);
                 return "add-jobs";
