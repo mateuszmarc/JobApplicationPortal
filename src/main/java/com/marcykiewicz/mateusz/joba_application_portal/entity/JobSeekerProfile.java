@@ -66,4 +66,13 @@ public class JobSeekerProfile implements UserProfile {
     public JobSeekerProfile(User user) {
         this.user = user;
     }
+
+    @Transient
+    public String getPhotosImagePath() {
+        String photosPath = null;
+        if (profilePhoto != null) {
+            photosPath = "/photos/job-seeker/" + id + "/" + profilePhoto;
+        }
+        return photosPath;
+    }
 }

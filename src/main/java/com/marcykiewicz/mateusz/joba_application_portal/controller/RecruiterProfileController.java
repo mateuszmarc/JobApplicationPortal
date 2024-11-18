@@ -44,8 +44,6 @@ public class RecruiterProfileController {
             recruiterProfile.map(profile -> model.addAttribute("profile", profile))
                     .orElseThrow(() -> new DatabaseIntegrityException("There is no RecruiterProfile in database for given user"));
 
-        } else {
-            return "redirect:/login";
         }
         return "recruiter-profile";
     }
@@ -63,7 +61,7 @@ public class RecruiterProfileController {
             }
 
             String username = authentication.getName();
-            User user = userService.findUserByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Could not find user"));
+            User user = userService.findUserByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Could not find the user"));
             recruiterProfile.setUser(user);
             recruiterProfile.setId(user.getUserId());
 

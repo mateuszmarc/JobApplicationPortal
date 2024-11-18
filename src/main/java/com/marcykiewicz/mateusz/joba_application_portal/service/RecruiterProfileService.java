@@ -2,6 +2,7 @@ package com.marcykiewicz.mateusz.joba_application_portal.service;
 
 import com.marcykiewicz.mateusz.joba_application_portal.entity.RecruiterProfile;
 import com.marcykiewicz.mateusz.joba_application_portal.repository.RecruiterProfileRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class RecruiterProfileService {
         return recruiterProfileRepository.findById(id);
     }
 
+    @Transactional
     public RecruiterProfile saveNew(RecruiterProfile recruiterProfile) {
       return recruiterProfileRepository.save(recruiterProfile);
     }
