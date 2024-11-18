@@ -29,8 +29,8 @@ public class JobPostActivity {
     @Column(name = "job_type")
     private String jobType;
 
-    @NotNull(message = "Job type is required")
     @Length(max = 100, message = "Job description can have 100 characters")
+    @NotNull(message = "Job description is required")
     @Column(name = "description_of_job")
     private String description;
 
@@ -41,7 +41,8 @@ public class JobPostActivity {
     @Column(name = "remote")
     private String remote;
 
-    @Pattern(regexp = "[0-9]*", message = "Invalid format")
+    @NotNull(message = "Salary is required")
+    @Pattern(regexp = "[0-9]+", message = "Invalid format")
     @Column(name = "salary")
     private String salary;
 
