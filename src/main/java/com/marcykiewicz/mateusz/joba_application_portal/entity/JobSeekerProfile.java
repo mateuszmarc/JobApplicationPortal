@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity(name = "job_seeker_profile")
-public class JobSeekerProfile {
+public class JobSeekerProfile implements UserProfile {
 
     @Id
     private Long id;
