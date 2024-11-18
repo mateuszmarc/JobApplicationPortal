@@ -65,6 +65,6 @@ public class RegistrationController {
         }
 
         userService.addUser(user);
-        return "dashboard";
+        return "redirect:dashboard";
     }
 }

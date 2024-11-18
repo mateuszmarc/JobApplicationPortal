@@ -48,6 +48,7 @@ public class WebSecurityConfig {
 
         security.authorizeHttpRequests(auth -> {
                     auth.requestMatchers(publicUrl).permitAll();
+                    auth.requestMatchers("/recruiter-profile/**").hasAuthority("Recruiter");
                     auth.anyRequest().authenticated();
                 }
         );
