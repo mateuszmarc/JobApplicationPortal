@@ -48,4 +48,13 @@ public class RecruiterProfile implements UserProfile {
     public RecruiterProfile(User user) {
         this.user = user;
     }
+
+    @Transient
+    public String getPhotosImagePath() {
+        String photosPath = null;
+        if (profilePhoto != null) {
+            photosPath = "/photos/recruiter/" + id + "/" + profilePhoto;
+        }
+        return photosPath;
+    }
 }
