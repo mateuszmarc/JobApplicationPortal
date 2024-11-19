@@ -24,13 +24,14 @@ public class JobLocation {
     @Column(name = "city")
     private String city;
 
+    @Column(name = "state")
+    private String state;
+
     @NotNull(message = "Country is required")
     @Column(name = "country")
     private String country;
 
-    @Column(name = "state")
-    private String state;
-
+    @ToString.Exclude
     @OneToMany(
             targetEntity = JobPostActivity.class,
             mappedBy = "jobLocation",
@@ -43,4 +44,11 @@ public class JobLocation {
             fetch = FetchType.LAZY
     )
     private List<JobPostActivity> jobPostActivities;
+
+    public JobLocation(Long id, String city, String state, String country) {
+        this.id = id;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+    }
 }

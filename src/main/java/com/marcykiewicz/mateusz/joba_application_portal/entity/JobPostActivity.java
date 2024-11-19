@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@Entity(name = "job_post_activity")
+@Entity
+@Table(name = "job_post_activity")
 public class JobPostActivity {
 
     @Id
@@ -58,6 +59,7 @@ public class JobPostActivity {
             })
     @JoinColumn(name = "job_company_id")
     private JobCompany jobCompany;
+
 
     @Valid
     @ManyToOne(
