@@ -57,6 +57,7 @@ public class JobSeekerProfile implements UserProfile {
     @Column(name = "profile_photo", nullable = true, length = 64)
     private String profilePhoto;
 
+    @ToString.Exclude
     @OneToMany(targetEntity = Skills.class,
             mappedBy = "jobSeekerProfile",
             cascade = CascadeType.ALL,
