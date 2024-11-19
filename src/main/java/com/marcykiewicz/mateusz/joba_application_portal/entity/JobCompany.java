@@ -27,6 +27,7 @@ public class JobCompany {
     @Column(name = "name")
     private String name;
 
+    @ToString.Exclude
     @OneToMany(
             targetEntity = JobPostActivity.class,
             mappedBy = "jobCompany",
@@ -35,5 +36,9 @@ public class JobCompany {
     )
     private List<JobPostActivity> jobPostActivities;
 
-
+    public JobCompany(Long id, String logo, String name) {
+        this.id = id;
+        this.logo = logo;
+        this.name = name;
+    }
 }
