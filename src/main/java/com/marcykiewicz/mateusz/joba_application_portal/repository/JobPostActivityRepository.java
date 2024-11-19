@@ -21,8 +21,8 @@ public interface JobPostActivityRepository extends JpaRepository<JobPostActivity
             "INNER JOIN job_location l ON j.job_location_id = l.id " +
             "INNER JOIN job_company c ON j.job_company_id = c.id " +
             "LEFT JOIN job_seeker_apply s ON s.job = j.job_post_id " +
-            "WHERE j.posted_by_id =: recruiter " +
-            "CROUP BY j.job_post_id", nativeQuery = true)
+            "WHERE j.posted_by_id =:recruiter " +
+            "GROUP BY j.job_post_id", nativeQuery = true)
     List<RecruiterPostedJob> getRecruiterPostedJobs(@Param("recruiter") Long id);
 
 }

@@ -24,7 +24,7 @@ public class JobPostActivityService {
        return jobPostActivityRepository.save(jobPostActivity);
     }
 
-    public List<RecruiterPostedJobDto> getRecruiterPostedJObs(Long recruiterId) {
+    public List<RecruiterPostedJobDto> getRecruiterPostedJobs(Long recruiterId) {
 
         List<RecruiterPostedJob> jobEntities = jobPostActivityRepository.getRecruiterPostedJobs(recruiterId);
 
