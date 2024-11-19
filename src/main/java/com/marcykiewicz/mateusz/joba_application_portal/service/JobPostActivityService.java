@@ -4,6 +4,7 @@ import com.marcykiewicz.mateusz.joba_application_portal.entity.JobPostActivity;
 import com.marcykiewicz.mateusz.joba_application_portal.entity.dto.RecruiterPostedJob;
 import com.marcykiewicz.mateusz.joba_application_portal.entity.dto.RecruiterPostedJobDto;
 import com.marcykiewicz.mateusz.joba_application_portal.entity.dto.RecruiterPostedJobMapper;
+import com.marcykiewicz.mateusz.joba_application_portal.exception.ResourceNotFoundException;
 import com.marcykiewicz.mateusz.joba_application_portal.repository.JobPostActivityRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,10 @@ public class JobPostActivityService {
                 jobDtos.add(recruiterPostedJobMapper.mapToDto(entity)));
 
         return jobDtos;
+    }
+
+    public JobPostActivity findById(Long id) {
+        return jobPostActivityRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource does not exist"));
     }
 
 }
