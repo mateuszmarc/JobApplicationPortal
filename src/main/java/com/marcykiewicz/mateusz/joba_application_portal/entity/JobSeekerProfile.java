@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -57,11 +58,12 @@ public class JobSeekerProfile implements UserProfile {
     @Column(name = "profile_photo", nullable = true, length = 64)
     private String profilePhoto;
 
+    @ToString.Exclude
     @OneToMany(targetEntity = Skills.class,
             mappedBy = "jobSeekerProfile",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    private List<Skills> skills;
+    private List<Skills> skills = new ArrayList<>();
 
     public JobSeekerProfile(User user) {
         this.user = user;
