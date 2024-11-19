@@ -1,6 +1,7 @@
 package com.marcykiewicz.mateusz.joba_application_portal.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -25,9 +26,11 @@ public class RecruiterProfile implements UserProfile {
     @MapsId
     private User user;
 
+    @NotNull(message = "First name is required")
     @Column(name = "first_name")
     private String firstName;
 
+    @NotNull(message = "Last name is required")
     @Column(name = "last_name")
     private String lastName;
 
@@ -40,6 +43,7 @@ public class RecruiterProfile implements UserProfile {
     @Column(name = "country")
     private String country;
 
+    @NotNull(message = "Company name is required")
     @Column(name = "company")
     private String company;
 

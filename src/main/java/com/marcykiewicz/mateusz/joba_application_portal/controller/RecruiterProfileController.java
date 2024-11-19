@@ -8,6 +8,7 @@ import com.marcykiewicz.mateusz.joba_application_portal.service.UserService;
 import com.marcykiewicz.mateusz.joba_application_portal.util.FileUploadUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +31,12 @@ public class RecruiterProfileController {
 
     private final RecruiterProfileService recruiterProfileService;
     private final UserService userService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
 
     @GetMapping
     public String showRecruiterForm(Model model) {
@@ -49,30 +57,32 @@ public class RecruiterProfileController {
     }
 
     @PostMapping
-    public String processRecruiterForm(@Valid @ModelAttribute RecruiterProfile recruiterProfile, BindingResult bindingResult,
-                                       @RequestParam("image") MultipartFile multipartFile, Model model) {
+    public String processRecruiterForm(@Valid @ModelAttribute("profile") RecruiterProfile profile, BindingResult bindingResult,
+                                       @RequestParam("image") MultipartFile multipartFile) {
 
+        System.out.println(profile);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
 
             if (bindingResult.hasErrors()) {
+                System.out.println(bindingResult.getAllErrors());
                 return "recruiter-profile";
             }
 
             String username = authentication.getName();
             User user = userService.findUserByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Could not find the user"));
-            recruiterProfile.setUser(user);
-            recruiterProfile.setId(user.getUserId());
+            profile.setUser(user);
+            profile.setId(user.getUserId());
 
             String fileName = "";
 
             if (!Objects.equals(multipartFile.getOriginalFilename(), "")) {
                 fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-                recruiterProfile.setProfilePhoto(fileName);
+                profile.setProfilePhoto(fileName);
             }
 
-            RecruiterProfile savedProfile = recruiterProfileService.saveNew(recruiterProfile);
+            RecruiterProfile savedProfile = recruiterProfileService.saveNew(profile);
 
             String uploadDir = "photos/recruiter/" + savedProfile.getId();
 
