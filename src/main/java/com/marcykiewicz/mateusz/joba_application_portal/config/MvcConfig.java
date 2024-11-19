@@ -10,11 +10,13 @@ import java.nio.file.Paths;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
-    private static final String UPLOAD_DIR = "photos";
+    private static final String PHOTO_UPLOAD_DIR = "photos";
+    private static final String RESUME_UPLOAD_DIR = "resumes";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        exposeDirectory(UPLOAD_DIR, registry);
+        exposeDirectory(PHOTO_UPLOAD_DIR, registry);
+        exposeDirectory(RESUME_UPLOAD_DIR, registry);
     }
 
     private void exposeDirectory(String uploadDir, ResourceHandlerRegistry registry) {
