@@ -1,10 +1,8 @@
 package com.marcykiewicz.mateusz.joba_application_portal.controller;
 
 import com.marcykiewicz.mateusz.joba_application_portal.entity.JobPostActivity;
-import com.marcykiewicz.mateusz.joba_application_portal.entity.RecruiterProfile;
 import com.marcykiewicz.mateusz.joba_application_portal.entity.User;
 import com.marcykiewicz.mateusz.joba_application_portal.entity.UserProfile;
-import com.marcykiewicz.mateusz.joba_application_portal.entity.dto.RecruiterPostedJobDto;
 import com.marcykiewicz.mateusz.joba_application_portal.service.JobPostActivityService;
 import com.marcykiewicz.mateusz.joba_application_portal.service.UserProfileService;
 import com.marcykiewicz.mateusz.joba_application_portal.service.UserService;
@@ -21,11 +19,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/dashboard")
+@RequestMapping("/jobs")
 public class JobPostActivityController {
 
     private final UserProfileService userProfileService;
@@ -36,29 +32,6 @@ public class JobPostActivityController {
     public void initBinder(WebDataBinder dataBinder) {
         StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-    }
-
-    @GetMapping
-    public String showDashboard(Model model) {
-
-        UserProfile userProfile = userProfileService.getCurrentUserProfile();
-        System.out.println(userProfile);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUsername = authentication.getName();
-            model.addAttribute("username", currentUsername);
-            model.addAttribute("user", userProfile);
-
-            if (userProfile instanceof RecruiterProfile) {
-                List<RecruiterPostedJobDto> postedJobs = jobPostActivityService.getRecruiterPostedJobs(((RecruiterProfile) userProfile).getId());
-                model.addAttribute("postedJobs", postedJobs);
-            }
-
-            return "dashboard";
-        }
-        model.addAttribute("user", userProfile);
-        return "dashboard";
     }
 
     @GetMapping("/new-job")
@@ -91,4 +64,5 @@ public class JobPostActivityController {
 
         return "redirect:/dashboard";
     }
+
 }
