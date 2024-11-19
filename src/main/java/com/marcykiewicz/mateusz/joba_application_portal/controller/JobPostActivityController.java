@@ -65,4 +65,20 @@ public class JobPostActivityController {
         return "redirect:/dashboard";
     }
 
+    @GetMapping("/job-details/{id}")
+    public String showJobDetails(@PathVariable Long id, Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            UserProfile userProfile = userProfileService.getCurrentUserProfile();
+            JobPostActivity jobPostActivity = jobPostActivityService.findById(id);
+
+            model.addAttribute("jobPost", jobPostActivity);
+            model.addAttribute("user", userProfile);
+            System.out.println(userProfile);
+        }
+
+        return "job-details";
+    }
 }
