@@ -81,4 +81,19 @@ public class JobPostActivityController {
 
         return "job-details";
     }
+
+    @GetMapping("/edit/{id}")
+    public String showEditJobPostForm(@PathVariable Long id, Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            UserProfile userProfile = userProfileService.getCurrentUserProfile();
+            JobPostActivity jobPostActivity = jobPostActivityService.findById(id);
+            model.addAttribute("user", userProfile);
+            model.addAttribute("jobPostActivity", jobPostActivity);
+        }
+
+        return "add-jobs";
+    }
 }
